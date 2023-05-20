@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foguis</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(0deg, lightblue, darkblue);
+            overflow: hidden;
+        }
+
+        .foguete {
+            position: absolute;
+            top: 700px;
+            left: 750px;
+        }
+
+        .lua {
+            position: absolute;
+            top: 650px;
+            left: 490px;
+
+        }
+
+        .nome {
+            position: absolute;
+            top: 750px;
+            left: 20px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="lua.png" class="lua">
+    <img id="foguete" src="foguete.gif" width="80px" class="foguete">
+    <audio id="audioContagem" src="contagem_regressiva.mp3"></audio>
+    <audio id="audioSubir" src="lancamento_foguete.mp3"></audio>
+    <audio id="audioDescer" src="houston_problem.mp3"></audio>
+    <div class="nome">Sally Luize Lenkulkul</div>
+
+
+
+    <script src="jquery-3.7.0.min.js"></script>
+    <script>
+        data = new Date();
+        tempo_inicial = data.getTime();
+
+
+        var audio = new Audio('lancamento_foguete.mp3')
+        var audioContagem = document.getElementById("audioContagem");
+        var audioSubir = document.getElementById("audioSubir");
+        var audioDescer = document.getElementById("audioDescer");
+
+        document.onkeydown = Pega_Tecla;
+        document.addEventListener("click", TocarContagem);
+        document.addEventListener("click", TocarSubir);
+        document.addEventListener("click", TocarDescer);
+
+
+        function Pega_Tecla(e) {
+            e = e || window.event;
+            tecla = e.keyCode;
+            console.log(tecla); // MOSTRA O CÓDIGO DA TECLA PRESSIONADA
+
+            data = new Date();
+            tempo_final = data.getTime();
+
+            if (tempo_final - tempo_inicial > 1000) {
+                tempo_inicial = tempo_final;
+
+                if (tecla == 37) {
+                    x = x - 20;
+                }
+                if (tecla == 39) {
+                    x = x + 20;
+                }
+            }
+        }
+
+        var temporizador = setTimeout(Subir, 1000);
+        var x = 750;
+        var y = 10;
+        var TOPO = "";
+        var ESQUERDA = "";
+
+        function Subir() {
+            TOPO = y + "px";
+            $("#foguete").animate({ top: TOPO }, 1000);
+            temporizador = null;
+            temporizador = setInterval(Descer, 1000);
+        }
+
+        function Descer() {
+            y = y + 100;
+            if (y > 700) {
+                y = 700;
+            }
+            TOPO = y + "px";
+            ESQUERDA = x + "px";
+            $("#foguete").animate({ left: ESQUERDA, top: TOPO }, 1000);
+        }
+
+        function TocarContagem() {
+            audio.play();
+        }
+
+        function TocarSubir() {
+            audio.play();
+
+        }
+
+        function TocarDescer() {
+            audio.play();
+
+        }
+
+        function PararAudio() {
+            audio.pause();
+        }
+        setTimeout(TocarContagem, 1000)
+
+        function PararAudio() {
+            audio.pause();
+        }
+        setTimeout(TocarSubir, 2000)
+
+        function PararAudio() {
+            audio.pause();
+        }
+        setTimeout(TocarDescer, 3000)
+
+    </script>
+</body>
+
+</html>
