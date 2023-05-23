@@ -75,7 +75,7 @@
             }
         }
 
-        var temporizador = setTimeout(Subir, 18000);
+       
         var x = 750;
         var y = 10;
         var TOPO = "";
@@ -88,9 +88,9 @@
             temporizador = setInterval(Descer, 1000);
         }
         function Descer() {
-            y = y + 100;
-            if (y > 700) {
-                y = 700;
+            y = y + 20;
+            if (y > 1000) {
+                y = 1000;
             }
             TOPO = y + "px";
             ESQUERDA = x + "px";
@@ -98,12 +98,11 @@
         }
 
         function Tocar1() {
-            temporizador = setTimeout(Subir, 20000)
+            temporizador = setTimeout(Subir, 17000)
             audio1 = document.getElementById('audio1');
             audio1.play();
-            temporizador = setTimeout(Subir, 20000)
-            temporizador = setTimeout(Tocar2, 25000)
-            temporizador = setTimeout(Tocar3, 35000)
+            temporizador2 = setTimeout(Tocar2, 20000)
+            temporizador3 = setTimeout(Tocar3, 30000)
 
         }
 
