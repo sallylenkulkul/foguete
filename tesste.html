@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fogs</title>
+    <title>Foguis</title>
     <style>
         body {
             width: 100%;
             height: 100vh;
-            background-image: linear-gradient(0deg, lightblue, rgb(233, 126, 199));
+            background-image: linear-gradient(0deg, lightblue, darkblue);
             overflow: hidden;
         }
 
@@ -22,38 +22,54 @@
 
         .lua {
             position: fixed;
-            top: 680px;
-            left: 500px;
+            top: 650px;
+            left: 490px;
+
+        }
+
+        .nome {
+            position: absolute;
+            top: 750px;
+            left: 20px;
+            font-family: 'Times New Roman', Times, serif;
         }
     </style>
 </head>
 
 <body>
     <img src="lua.png" class="lua">
-    <img id="foguete" src="foguete.gif" width="80px" class="foguete">
-    <img onclick="Tocar1()" id="foguete">
+    <img onclick="Tocar1()" id="foguete" src="foguete.gif" width="80px" class="foguete">
+
     <audio id="audio1" autoplay="">
         <source src="contagem_regressiva.mp3" type="audio/mp3">
-    </audio>
+    </audio> 
     <audio id="audio2" autoplay="">
         <source src="subir.mp3" type="audio/mp3">
-    </audio>
+    </audio> 
     <audio id="audio3" autoplay="">
         <source src="descer.mp3" type="audio/mp3">
-    </audio>
+    </audio> 
+    
+    <div class="nome">Sally Luize Lenkulkul</div>
+
+    
 
     <script src="jquery-3.7.0.min.js"></script>
     <script>
-
         data = new Date();
         tempo_inicial = data.getTime();
 
-        var audio1 = document.getElementById("audio1");
-        var audio2 = document.getElementById("audio2");
-        var audio3 = document.getElementById("audio3");
+
+        var audio = new Audio('lancamento_foguete.mp3')
+        var audioContagem = document.getElementById("audioContagem");
+        var audioSubir = document.getElementById("audioSubir");
+        var audioDescer = document.getElementById("audioDescer");
 
         document.onkeydown = Pega_Tecla;
-        document.addEventListener("click", Tocar1);
+        document.addEventListener("click", TocarAudio1);
+        document.addEventListener("click", TocarAudio2);
+        document.addEventListener("click", TocarAudio3);
+
 
         function Pega_Tecla(e) {
             e = e || window.event;
@@ -75,18 +91,22 @@
             }
         }
 
-        var temporizador = setTimeout(Subir, 18000);
+        var temporizador = setTimeout(Subir, 20000);
         var x = 750;
         var y = 10;
         var TOPO = "";
         var ESQUERDA = "";
+ 
+
+
 
         function Subir() {
             TOPO = y + "px";
-            $("#foguete").animate({ top: TOPO }, 18000);
+            $("#foguete").animate({ top: TOPO }, 1000);
             temporizador = null;
             temporizador = setInterval(Descer, 1000);
         }
+
         function Descer() {
             y = y + 100;
             if (y > 700) {
@@ -94,28 +114,38 @@
             }
             TOPO = y + "px";
             ESQUERDA = x + "px";
-            $("#foguete").animate({ left: ESQUERDA, top: TOPO }, 1000);
+            $("#foguete").animate({ left: ESQUERDA, top: TOPO }, 17000);
         }
 
-        function Tocar1() {
-            temporizador = setTimeout(Subir, 20000)
-            audio1 = document.getElementById('audio1');
-            audio1.play();
-            temporizador = setTimeout(Subir, 20000)
-            temporizador = setTimeout(Tocar2, 25000)
-            temporizador = setTimeout(Tocar3, 35000)
+        function TocarAudio1() {
+            audio.play();
+        }
+
+        function TocarAudio2() {
+            audio.play();
 
         }
 
-        function Tocar2() {
-            audio2 = document.getElementById('audio2');
-            audio2.play();
+        function TocarAudio3() {
+            audio.play();
+
         }
 
-        function Tocar3() {
-            audio3 = document.getElementById('audio3');
-            audio3.play();
+        function PararAudio() {
+            audio.pause();
         }
+        setTimeout(TocarContagem, 1000)
+
+        function PararAudio() {
+            audio.pause();
+        }
+        setTimeout(TocarSubir, 2000)
+
+        function PararAudio() {
+            audio.pause();
+        }
+        setTimeout(TocarDescer, 3000)
+
     </script>
 </body>
 
